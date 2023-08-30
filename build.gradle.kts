@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    // When Set up
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-tomcat-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
@@ -31,4 +32,11 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:3.4.3")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
+    // for exposed
+    implementation("org.jetbrains.exposed", "exposed-core", "0.41.1")
+    implementation("org.jetbrains.exposed", "exposed-dao", "0.41.1")
+    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.41.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.41.1")
+    implementation("mysql:mysql-connector-java:8.0.33")
 }

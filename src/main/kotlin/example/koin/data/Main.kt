@@ -1,8 +1,10 @@
 package example.koin.data
 
 import example.koin.data.model.Department
+import example.koin.data.record.DepartmentRecord
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun main(){
@@ -13,8 +15,8 @@ fun main(){
         password = "secret"
     )
     transaction {
-        Department.slice(Department.departmentId, Department.departmentName).selectAll().map {
-            println("${it[Department.departmentId]}: ${it[Department.departmentName]}")
-        }
+        val slice = Department.slice(Department.departmentId, Department.departmentName)
+        val selectAll = slice.selectAll().toList()
+        println(selectAll[0][Department.departmentId])
     }
 }

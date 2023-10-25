@@ -15,8 +15,19 @@ fun main(){
         password = "secret"
     )
     transaction {
-        val slice = Department.slice(Department.departmentId, Department.departmentName)
-        val selectAll = slice.selectAll().toList()
-        println(selectAll[0][Department.departmentId])
+        val nativeQueryDataAccessor = NativeQueryDataAccessor()
+        nativeQueryDataAccessor.prepareStatement(
+            TransactionManager.current().connection,
+            """
+                INSERT INTO DEPARTMENT VALUES (?, ?, SYSDATE(), SYSDATE())
+            """.trimIndent(),
+            listOf(
+                Pair(Department.departmentId.columnType, 4),
+                Pair(Department.departmentName.columnType, "法務', SYSDATE(), SYSDATE()); DELETE FROM DEPARTMENT; -- "),
+            )
+        )
+        //実行
+        nativeQueryDataAccessor.executeUpdate()
+        commit()
     }
 }
